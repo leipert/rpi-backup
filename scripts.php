@@ -1,4 +1,5 @@
 <?php
+
 function execInBackground($cmd) { 
     if (substr(php_uname(), 0, 7) == 'Windows'){ 
         pclose(popen('start /B '. $cmd, "r"));  
@@ -7,6 +8,8 @@ function execInBackground($cmd) {
         exec($cmd . ' > /dev/null &');   
     } 
 }
+
+touch('output.log');
 if(isset($_GET['call'])){
     switch ($_GET['call']) {
         case 'reboot':
@@ -16,9 +19,9 @@ if(isset($_GET['call'])){
             execInBackground('sudo shutdown -h now');
             break;
         case 'pull':
-            exec('git pull',$arr,$ret);
+            exec('git pull > output.log');
             break;
     }
 }
 
-echo json_encode(array('arr'=>$arr,'ret'=>$ret));
+echo json_encode(array('ret'=>file_get_contents('output.log')));
