@@ -18,7 +18,7 @@
       <h1>Backup-Maschine</h1>
       <h4>Status Backup</h4>
       <h4 id="actions" >Aktionen</h4>
-      <button id="update" class="btn btn-default btn-block" onclick="update()">Update</button>
+      <button id="update" class="btn btn-default btn-block">Update</button>
       <a data-toggle="modal" data-target="#modal"  href="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</a>
       <a data-toggle="modal" data-target="#modal"  href="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</a>
 </div>
@@ -36,13 +36,14 @@
     $('#update').click(function(){
     var update = $(this);
         $.ajax({
-        url:'scripts.php?call=pull',
-        success:function(data){
-        console.log(data);
-        $('#actions').after('<div class="alert alert-dismissable alert-success">' + 
-                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + 
-                        data.return + '</div>');
-        }
+        url: 'scripts.php?call=pull',
+        dataType: 'json',
+        success: function(data){
+            console.log(data);
+            $('#actions').after('<div class="alert alert-dismissable alert-success">' + 
+                            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + 
+                            data.return + '</div>');
+            }
         });
     });
 $(document.body).on('hidden.bs.modal', function () {
