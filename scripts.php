@@ -24,4 +24,4 @@ if(isset($_GET['call'])){
     }
 }
 
-echo json_encode(array('return'=>file_get_contents('output.log')));
+echo json_encode(array('return'=>nl2br(trim(file_get_contents('output.log')))));
