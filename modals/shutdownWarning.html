@@ -1,0 +1,27 @@
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"><b>ACHTUNG!</b></h4>
+        </div>
+        <div class="modal-body">
+        <p>
+        Es wird empfohlen die Maschine nur herunterzufahren, wenn Sie die Maschine wirklich ausschalten wollen, um zum Beispiel ihren Standort zu verlegen.<br>
+        M&ouml;chten Sie die Maschine nur neu starten, empfiehlt sich das &uuml;ber den Neustart-Button.<br>
+          Um sie wieder in den Betrieb zu nehmen, folgende Schritte tun:
+          </p>
+          <ol>
+          <li>Von der Stromversorgung trennen.</li>
+          <li>Wieder die Stromversorgung anschlie&szlig;en.</li>
+          </ol>
+          <p>
+          <b>Wollen Sie die Maschine wirklich herunterfahren?</b>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Abbrechen</button>
+          <button type="button" class="btn btn-warning" onclick="reboot()">Neustarten</button>
+          <button type="button" class="btn btn-danger" onclick="shutdown()">Herunterfahren</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
