@@ -38,7 +38,7 @@
         url: 'scripts.php?call=status',
         dataType: 'json',
         success: function(data){
-            $('#status').html('data.return');
+            $('#status').html(data.return);
         }
         });
     $('#update').click(function(){
