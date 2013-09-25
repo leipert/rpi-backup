@@ -16,7 +16,9 @@ if(isset($_GET['call'])){
             execInBackground('sudo shutdown -h now');
             break;
         case 'pull':
-            execInBackground('git pull');
+            exec('git pull',$arr,$ret);
             break;
     }
 }
+
+echo json_encode(array('arr'=>$arr,'ret'=>$ret));

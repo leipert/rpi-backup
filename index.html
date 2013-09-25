@@ -18,6 +18,7 @@
       <h1>Backup-Maschine</h1>
       <h4>Status Backup</h4>
       <h4>Aktionen</h4>
+      <a href="#" class="btn btn-default btn-block" onclick="update()">Update</a>
       <a data-toggle="modal" data-target="#modal"  href="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</a>
       <a data-toggle="modal" data-target="#modal"  href="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</a>
 </div>
@@ -30,7 +31,14 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script>
-
+    function update(){
+        $.ajax({
+        url:'scripts.php?call=pull',
+        success:function(data){
+        console.log(data);
+        }
+        });
+    }
     $(document).ready(function(){
 $(document.body).on('hidden.bs.modal', function () {
     $('#modal').removeData('bs.modal')
