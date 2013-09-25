@@ -17,6 +17,7 @@
       <div id="controls" class="col-md-4 col-md-offset-4">
       <h1>Backup-Maschine</h1>
       <h4>Status Backup</h4>
+      <pre id="status"></pre>
       <h4 id="actions" >Aktionen</h4>
       <button id="update" class="btn btn-default btn-block">Update</button>
       <a data-toggle="modal" data-target="#modal"  href="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</a>
@@ -33,8 +34,13 @@
     <script>
 
     $(document).ready(function(){
+        $.ajax({
+        url: 'scripts.php?call=status',
+        dataType: 'json',
+        success: function(data){
+            $('#status').html('data.return');
+        });
     $('#update').click(function(){
-    var update = $(this);
         $.ajax({
         url: 'scripts.php?call=pull',
         dataType: 'json',

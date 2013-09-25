@@ -10,6 +10,7 @@ function execInBackground($cmd) {
 }
 
 touch('output.log');
+$return='';
 if(isset($_GET['call'])){
     switch ($_GET['call']) {
         case 'reboot':
@@ -20,8 +21,13 @@ if(isset($_GET['call'])){
             break;
         case 'pull':
             exec('git pull > /var/www/output.log 2>&1');
+            $return = array('return'=>nl2br(trim(file_get_contents('output.log'))));
+            break;
+        case 'status':
+            exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/output.log 2>&1');
+            $return = array('return'=>nl2br(trim(file_get_contents('output.log'))));
             break;
     }
 }
 
-echo json_encode(array('return'=>nl2br(preg_replace('/\s+$/','',file_get_contents('output.log')))));
+echo json_encode($return);
