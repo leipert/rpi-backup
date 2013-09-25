@@ -19,9 +19,9 @@ if(isset($_GET['call'])){
             execInBackground('sudo shutdown -h now');
             break;
         case 'pull':
-            exec('git pull > output.log');
+            exec('git pull > /var/www/output.log 2>&1');
             break;
     }
 }
 
-echo json_encode(array('ret'=>file_get_contents('output.log')));
+echo json_encode(array('return'=>file_get_contents('output.log')));
