@@ -31,6 +31,7 @@
         $('#remove-hdd').click(function () {
             $('#loader').show();
             $('.modal-footer button').hide();
+            $('.modal-header button').hide();
             $.ajax({
                 url: 'scripts.php?call=removeHDD',
                 dataType: 'json',
