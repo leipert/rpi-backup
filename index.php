@@ -79,10 +79,10 @@
             $('h4.debug').after('<div style="text-align:left;" class="alert alert-dismissable alert-'+ data.status + ' alert-update">' + 
                             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + 
                             data.return + '</div>');
-            }
             if(data.status == 'success'){
                 $('.btn').prop('disabled', true);
                 setTimeout(window.location.reload(),5000);
+            }
             }
         });
     });
