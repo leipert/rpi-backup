@@ -30,8 +30,8 @@
                 nicht</strong> angeschlossen.</p>
         <h4 id="actions" class="text-center">Aktionen</h4>
         <button id="remove-hdd" class="btn btn-default btn-block">RemoveHDD</button>
-        <a data-toggle="modal" data-target="#modal" href="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</a>
-        <a data-toggle="modal" data-target="#modal" href="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</a>
+        <button data-toggle="modal" data-target="#modal" data-remote="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</button>
+        <button data-toggle="modal" data-target="#modal" data-remote="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</button>
         <?php if (isset($_GET['debug'])) { ?>
             <h4 class="debug text-center">Debug</h4>
             <button id="update" class="btn btn-default btn-block">Update</button>

@@ -32,7 +32,7 @@ if (isset($_GET['call'])) {
             if ($status == 0) {
                 $status = 'success';
             } else {
-                $status = 'error';
+                $status = 'danger';
             }
             if (strpos($output, 'Already up-to-date') !== false) {
                 $status = 'info';
@@ -44,20 +44,20 @@ if (isset($_GET['call'])) {
             exec('sudo /etc/init.d/crashplan stop > /var/www/output.log 2>&1', $arr, $status);
             sleep(5);
             exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/output.log 2>&1');
-            if (str_pos(getNiceOutput(), '/CrashPlan Engine is stopped/')) {
+            if (strpos(getNiceOutput(), '/CrashPlan Engine is stopped/') !== false) {
                 exec('sudo swapoff -a > /var/www/output.log 2>&1', $arr, $status);
                 if ($status == 0) {
                     exec('sudo umount /media/backup > /var/www/output.log 2>&1', $arr, $status);
                     if ($status == 0) {
                         $return = array('return' => 'HDD unmounted', 'status' => 'success');
                     } else {
-                        $return = array('return' => 'HDD could not be unmounted.<br>' . getNiceOutput(), 'status' => 'error');
+                        $return = array('return' => 'HDD could not be unmounted.<br>' . getNiceOutput(), 'status' => 'danger');
                     }
                 } else {
-                    $return = array('return' => 'Swap could not be turned off.<br>' . getNiceOutput(), 'status' => 'error');
+                    $return = array('return' => 'Swap could not be turned off.<br>' . getNiceOutput(), 'status' => 'danger');
                 }
             } else {
-                $return = array('return' => 'Crashplan still running', 'status' => 'error');
+                $return = array('return' => 'Crashplan still running', 'status' => 'danger');
             }
             unlink('.nomount');
             break;
