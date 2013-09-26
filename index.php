@@ -26,7 +26,7 @@
       <?php if(isset($_GET['debug'])){ ?>
       <h4 class="debug text-center" >Debug</h4>
       <button id="update" class="btn btn-default btn-block">Update</button>
-      <pre id="debug" style="text-align: left;></pre>
+      <pre id="debug" style="text-align: left;"></pre>
       <?php } ?>
 </div>
   </div>
@@ -64,7 +64,7 @@
                 $('#hdd-status .not').show();
             }
             if($('#debug').length>0){
-            $('#debug').html(data.debug);
+            $('#debug').text(data.debug);
             }
         }
         });
