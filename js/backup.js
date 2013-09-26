@@ -6,12 +6,16 @@
  * To change this template use File | Settings | File Templates.
  */
 
+var updateTimeout = null;
+
 function updateStatus(){
     $.ajax({
         url: 'scripts.php?call=status',
         dataType: 'json',
         success: function (data) {
             console.log(data);
+            clearTimeout(updateTimeout);
+            updateTimeout = setTimeout(updateStatus,30000);
             if (data.crashplan) {
                 $('#crashplan-status .label').removeClass('label-danger').addClass('label-success');
                 $('#crashplan-status .glyphicon').removeClass('glyphicon-warning-sign').addClass('glyphicon-check');
@@ -20,6 +24,8 @@ function updateStatus(){
                 $('#crashplan-status .label').addClass('label-danger').removeClass('label-success');
                 $('#crashplan-status .glyphicon').addClass('glyphicon-warning-sign').removeClass('glyphicon-check');
                 $('#crashplan-status .not').show();
+                clearTimeout(updateTimeout);
+                updateTimeout = setTimeout(updateStatus,5000);
             }
             if (data.hdd) {
                 $('#hdd-status .label').removeClass('label-danger').addClass('label-success');
@@ -31,6 +37,8 @@ function updateStatus(){
                 $('#hdd-status .glyphicon').addClass('glyphicon-warning-sign').removeClass('glyphicon-check');
                 $('#hdd-status .not').show();
                 $('#hdd-remove-btn').prop('disabled', true);
+                clearTimeout(updateTimeout);
+                updateTimeout = setTimeout(updateStatus,5000);
             }
             if ($('#debug').length > 0) {
                 $('#debug').text(data.debug);
@@ -41,8 +49,7 @@ function updateStatus(){
 
 $(document).ready(function () {
 
-    updateStatus();
-    setInterval(function(){updateStatus()},30000);
+    updateTimeout = setTimeout(updateStatus,100);
 
     $('#update').click(function () {
         $.ajax({
