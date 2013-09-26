@@ -81,7 +81,7 @@
                             data.return + '</div>');
             if(data.status == 'success'){
                 $('.btn').prop('disabled', true);
-                setTimeout(window.location.reload(),5000);
+                setTimeout(function(){window.location.reload()},10000);
             }
             }
         });
