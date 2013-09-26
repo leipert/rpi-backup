@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><b>Möchten Sie die Festplatte tatsächlich sicher entfernen?</b></h4>
+        </div>
+        <div class="modal-body">
+            <p>
+                Wenn Sie die Festplatte sicher entfernen, kann kein weiteres Backup vollführt werden.
+                Sie müssen Sie dann erneut anschließen, damit die Backupfunktionalität wieder gestartet wird.
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Abbrechen</button>
+            <button id="remove-hdd" data-dismiss="modal" class="btn btn-warning">Festplatte sicher entfernen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#remove-hdd').click(function () {
+            $.ajax({
+                url: 'scripts.php?call=removeHDD',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    updateStatus();
+                    $(".alert-hdd").alert('close')
+                    $('h4#actions').after('<div style="text-align:left;" class="alert alert-dismissable alert-' + data.status + ' alert-hdd">' +
+                            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
+                            data.return + '</div>');
+                }
+            });
+        });
+    });
+</script>

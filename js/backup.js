@@ -63,20 +63,6 @@ $(document).ready(function () {
             }
         });
     });
-    $('#remove-hdd').click(function () {
-        $.ajax({
-            url: 'scripts.php?call=removeHDD',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                updateStatus();
-                $(".alert-hdd").alert('close')
-                $('h4#actions').after('<div style="text-align:left;" class="alert alert-dismissable alert-' + data.status + ' alert-hdd">' +
-                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
-                    data.return + '</div>');
-            }
-        });
-    });
     $(document.body).on('hidden.bs.modal', function () {
         $('#modal').removeData('bs.modal')
     });
