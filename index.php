@@ -22,7 +22,7 @@
       <a data-toggle="modal" data-target="#modal"  href="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</a>
       <a data-toggle="modal" data-target="#modal"  href="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</a>
       <?php if(isset($_GET['debug'])){ ?>
-      <h4 id="actions" >Debug</h4>
+      <h4 class="debug" >Debug</h4>
       <button id="update" class="btn btn-default btn-block">Update</button>
       <pre id="debug"></pre>
       <?php } ?>
@@ -42,6 +42,7 @@
         url: 'scripts.php?call=status',
         dataType: 'json',
         success: function(data){
+            console.log(data);
             $('#status').html(data.return);
             if($('#debug').length>0){
             $('#debug').html(data.debug);
@@ -54,7 +55,7 @@
         dataType: 'json',
         success: function(data){
             $(".alert-update").alert('close')
-            $('#actions').after('<div style="text-align:left;" class="alert alert-dismissable alert-success alert-update">' + 
+            $('h4.debug').after('<div style="text-align:left;" class="alert alert-dismissable alert-success alert-update">' + 
                             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + 
                             data.return + '</div>');
             }
