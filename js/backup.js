@@ -53,7 +53,7 @@ $(document).ready(function () {
                     $('.btn').prop('disabled', true);
                     setTimeout(function () {
                         window.location.reload()
-                    }, 60000);
+                    }, 5000);
                 }else{
                     updateStatus();
                 }
