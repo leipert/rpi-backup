@@ -76,9 +76,13 @@
         success: function(data){
             console.log(data);
             $(".alert-update").alert('close')
-            $('h4.debug').after('<div style="text-align:left;" class="alert alert-dismissable alert-success alert-update">' + 
+            $('h4.debug').after('<div style="text-align:left;" class="alert alert-dismissable alert-'+ data.status + ' alert-update">' + 
                             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + 
                             data.return + '</div>');
+            }
+            if(data.status == 'success'){
+                $('.btn').prop('disabled', true);
+                setTimeout(window.location.reload(),5000);
             }
         });
     });
@@ -88,8 +92,8 @@
         dataType: 'json',
         success: function(data){
             console.log(data);
-            $(".alert-update").alert('close')
-            $('h4#actions').after('<div style="text-align:left;" class="alert alert-dismissable alert-success alert-update">' + 
+            $(".alert-hdd").alert('close')
+            $('h4#actions').after('<div style="text-align:left;" class="alert alert-dismissable alert-'+ data.status + ' alert-hdd">' + 
                             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + 
                             data.return + '</div>');
             }

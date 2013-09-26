@@ -21,6 +21,7 @@ if(isset($_GET['call'])){
             break;
         case 'pull':
             exec('git pull > /var/www/output.log 2>&1',$arr,$status);
+            if($status == 0){ $status == 'success' } else {$status == 'error'}
             $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
             break;
         case 'removeHDD':
@@ -57,7 +58,7 @@ if(isset($_GET['call'])){
             }
             exec('cat /proc/swaps | grep /dev >> /var/www/output.log 2>&1');
             exec('/etc/init.d/ramlog status >> /var/www/output.log 2>&1');
-            $return['debug'] = preg_replace('/[\t\v\f ]+/',' ',trim(file_get_contents('output.log')));
+            $return['debug'] = preg_replace('/[\t\v\f ]+/',' ',nl2br(trim(file_get_contents('output.log'))));
             break;
     }
 }
