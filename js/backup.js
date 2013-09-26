@@ -38,9 +38,9 @@ function updateStatus(){
 }
 
 $(document).ready(function () {
-    
+
     updateStatus();
-    setInterval(updateStatus(),30000);
+    setInterval(function(){updateStatus()},30000);
 
     $('#update').click(function () {
         $.ajax({

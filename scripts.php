@@ -12,7 +12,7 @@ function getNiceOutput()
 
 function br2nl($string)
 {
-    return preg_replace('/\<br(\s*)?\/?\>/i', "\n", $string);
+    return preg_replace('/\<br(\s*)?\/?\>\s+/i', "\n", $string);
 }
 
 
@@ -73,7 +73,7 @@ if (isset($_GET['call'])) {
             }
             exec('cat /proc/swaps | grep /dev >> /var/www/output.log 2>&1');
             exec('/etc/init.d/ramlog status >> /var/www/output.log 2>&1');
-            $return['debug'] = br2nl(getNiceOutput());
+            $return['debug'] = br2nl(date('r').'<br>'.getNiceOutput());
             break;
     }
 }
