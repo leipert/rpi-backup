@@ -22,10 +22,10 @@ if(isset($_GET['call'])){
             exec('git pull > /var/www/output.log 2>&1',$arr,$status1);
             $output = getNiceOutput();
             if($status1 == 0){ $status = 'success'; } else {$status = 'error';}
-            if(strpos($output,'Already up-to-date'){
+            if(strpos($output,'Already up-to-date')){
             $status = 'info'.$status1;
             }
-            $return = array('return'=>,'status'=>$status);
+            $return = array('return'=>$output,'status'=>$status);
             break;
         case 'removeHDD':
             touch('.nomount');
