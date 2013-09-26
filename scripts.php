@@ -35,7 +35,7 @@ if(isset($_GET['call'])){
             }
             exec('cat /proc/swaps | grep /dev >> /var/www/output.log 2>&1');
             exec('/etc/init.d/ramlog status >> /var/www/output.log 2>&1');
-            $return['debug'] = nl2br(trim(file_get_contents('output.log')));
+            $return['debug'] = preg_replace('/[\t\v\f ]+/',' ',trim(file_get_contents('output.log')));
             break;
     }
 }

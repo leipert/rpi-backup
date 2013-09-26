@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Backup-Maschine</title>
+    <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -13,18 +14,19 @@
     <![endif]-->
   </head>
   <body>
-  <div class="container" style="text-align:center;">
+  <div class="container">
       <div id="controls" class="col-md-4 col-md-offset-4">
-      <h1>Backup-Maschine</h1>
-      <h4>Status Backup</h4>
-      <pre id="status"></pre>
-      <h4 id="actions" >Aktionen</h4>
+      <h1 class="text-center">Backup-Maschine</h1>
+      <h4 class="text-center">Status Backup</h4>
+        <p class="lead" id="crashplan-status" ><span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Crashplan läuft<strong class="not"> nicht</strong>.</p>
+        <p  class="lead" id="hdd-status"><span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Festplatte<strong class="not"> nicht</strong> angeschlossen.</p>
+      <h4 id="actions"  class="text-center">Aktionen</h4>
       <a data-toggle="modal" data-target="#modal"  href="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</a>
       <a data-toggle="modal" data-target="#modal"  href="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</a>
       <?php if(isset($_GET['debug'])){ ?>
-      <h4 class="debug" >Debug</h4>
+      <h4 class="debug text-center" >Debug</h4>
       <button id="update" class="btn btn-default btn-block">Update</button>
-      <pre id="debug"></pre>
+      <pre id="debug" style="text-align: left;></pre>
       <?php } ?>
 </div>
   </div>
@@ -43,7 +45,24 @@
         dataType: 'json',
         success: function(data){
             console.log(data);
-            $('#status').html(data.return);
+            if(data.crashplan){
+                $('#crashplan-status .label').removeClass('label-danger').addClass('labelSuccess');
+                $('#crashplan-status .glyphicon').removeClass('glyphicon-warning-sign').addClass('glyphicon-check');
+                $('#crashplan-status .not').hide();
+            }else{
+                $('#crashplan-status .label').addClass('label-danger').removeClass('labelSuccess');
+                $('#crashplan-status .glyphicon').addClass('glyphicon-warning-sign').removeClass('glyphicon-check');
+                $('#crashplan-status .not').show();
+            }
+            if(data.hdd){
+                $('#hdd-status .label').removeClass('label-danger').addClass('labelSuccess');
+                $('#hdd-status .glyphicon').removeClass('glyphicon-warning-sign').addClass('glyphicon-check');
+                $('#hdd-status .not').hide();
+            }else{
+                $('#hdd-status .label').addClass('label-danger').removeClass('labelSuccess');
+                $('#hdd-status .glyphicon').addClass('glyphicon-warning-sign').removeClass('glyphicon-check');
+                $('#hdd-status .not').show();
+            }
             if($('#debug').length>0){
             $('#debug').html(data.debug);
             }
