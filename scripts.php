@@ -21,7 +21,7 @@ if(isset($_GET['call'])){
             break;
         case 'pull':
             exec('git pull > /var/www/output.log 2>&1',$arr,$status);
-            if($status == 0){ $status == 'success' } else {$status == 'error'}
+            if($status == 0){ $status == 'success'; } else {$status == 'error';}
             $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
             break;
         case 'removeHDD':
