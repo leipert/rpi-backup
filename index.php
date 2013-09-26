@@ -21,13 +21,13 @@
         <h1 class="text-center">Backup-Maschine</h1>
         <h4 class="text-center">Status Backup</h4>
 
-        <p class="lead" id="crashplan-status"><span class="label label-danger"><span
-                    class="glyphicon glyphicon-warning-sign"></span></span> Crashplan läuft<strong class="not">
-                nicht</strong>.</p>
+        <p class="lead" id="crashplan-status">
+            <span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Crashplan läuft<strong class="not">nicht</strong>.
+        </p>
 
-        <p class="lead" id="hdd-status"><span class="label label-danger"><span
-                    class="glyphicon glyphicon-warning-sign"></span></span> Festplatte<strong class="not">
-                nicht</strong> angeschlossen.</p>
+        <p class="lead" id="hdd-status">
+            <span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Festplatte<strong class="not"> nicht</strong> angeschlossen.
+        </p>
         <h4 id="actions" class="text-center">Aktionen</h4>
         <button id="remove-hdd" class="btn btn-default btn-block">Festplatte auswerfen</button>
         <button data-toggle="modal" data-target="#modal" data-remote="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</button>
