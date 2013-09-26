@@ -21,6 +21,7 @@
         <p class="lead" id="crashplan-status" ><span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Crashplan läuft<strong class="not"> nicht</strong>.</p>
         <p  class="lead" id="hdd-status"><span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Festplatte<strong class="not"> nicht</strong> angeschlossen.</p>
       <h4 id="actions"  class="text-center">Aktionen</h4>
+      <button id="remove-hdd" class="btn btn-default btn-block">RemoveHDD</button>
       <a data-toggle="modal" data-target="#modal"  href="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</a>
       <a data-toggle="modal" data-target="#modal"  href="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</a>
       <?php if(isset($_GET['debug'])){ ?>
@@ -73,8 +74,22 @@
         url: 'scripts.php?call=pull',
         dataType: 'json',
         success: function(data){
+            console.log(data);
             $(".alert-update").alert('close')
             $('h4.debug').after('<div style="text-align:left;" class="alert alert-dismissable alert-success alert-update">' + 
+                            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + 
+                            data.return + '</div>');
+            }
+        });
+    });
+    $('#remove-hdd').click(function(){
+        $.ajax({
+        url: 'scripts.php?call=removeHDD',
+        dataType: 'json',
+        success: function(data){
+            console.log(data);
+            $(".alert-update").alert('close')
+            $('h4#actions').after('<div style="text-align:left;" class="alert alert-dismissable alert-success alert-update">' + 
                             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + 
                             data.return + '</div>');
             }

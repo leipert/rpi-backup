@@ -20,8 +20,12 @@ if(isset($_GET['call'])){
             execInBackground('sudo shutdown -h now');
             break;
         case 'pull':
-            exec('git pull > /var/www/output.log 2>&1');
-            $return = array('return'=>nl2br(trim(file_get_contents('output.log'))));
+            exec('git pull > /var/www/output.log 2>&1',$arr,$status);
+            $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
+            break;
+        case 'removeHDD':
+            exec('/usr/local/crashplan/bin/CrashPlanEngine stop > /var/www/output.log 2>&1',$arr,$status);
+            $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
             break;
         case 'status':
             $return = array('return'=>'','crashplan'=>false,'hdd'=>false,'debug'=>'');
