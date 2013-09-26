@@ -24,8 +24,18 @@ if(isset($_GET['call'])){
             $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
             break;
         case 'removeHDD':
+            touch('.nomount');
             exec('sudo /etc/init.d/crashplan stop > /var/www/output.log 2>&1',$arr,$status);
-            $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
+            sleep(5);
+            exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/output.log 2>&1');
+            if (preg_match('/CrashPlan Engine is stopped/', file_get_contents('output.log'))){
+                exec('sudo swapoff -a',$arr,$status);
+                exec('cat /proc/swaps | grep /dev > /var/www/output.log 2>&1');
+                $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
+            }else{
+            $return = array('return'=>'Crashplan still running','status'=>'error');
+            }
+            unlink('.nomount');
             break;
         case 'status':
             $return = array('return'=>'','crashplan'=>false,'hdd'=>false,'debug'=>'');
