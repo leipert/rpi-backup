@@ -44,7 +44,7 @@ if (isset($_GET['call'])) {
             exec('sudo /etc/init.d/crashplan stop > /var/www/log/output.log 2>&1', $arr, $status);
             sleep(5);
             exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/log/output.log 2>&1');
-            if (strpos(getNiceOutput(), '/CrashPlan Engine is stopped/') !== false) {
+            if (strpos(getNiceOutput(), 'CrashPlan Engine is stopped') !== false) {
                 exec('sudo swapoff -a > /var/www/log/output.log 2>&1', $arr, $status);
                 if ($status == 0) {
                     exec('sudo umount /media/backup > /var/www/log/output.log 2>&1', $arr, $status);
