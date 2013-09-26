@@ -49,15 +49,15 @@ if (isset($_GET['call'])) {
                 if ($status == 0) {
                     exec('sudo umount /media/backup > /var/www/log/output.log 2>&1', $arr, $status);
                     if ($status == 0) {
-                        $return = array('return' => 'HDD unmounted', 'status' => 'success');
+                        $return = array('return' => 'Festplatte erfolgreich entfernt.', 'status' => 'success');
                     } else {
-                        $return = array('return' => 'HDD could not be unmounted.<br>' . getNiceOutput(), 'status' => 'danger');
+                        $return = array('return' => 'Festplatte konnte nicht entfernt werden. (umount) <br>' . getNiceOutput(), 'status' => 'danger');
                     }
                 } else {
-                    $return = array('return' => 'Swap could not be turned off.<br>' . getNiceOutput(), 'status' => 'danger');
+                    $return = array('return' => 'Festplatte konnte nicht entfernt werden. (swapoff) <br>' . getNiceOutput(), 'status' => 'danger');
                 }
             } else {
-                $return = array('return' => 'Crashplan still running', 'status' => 'danger');
+                $return = array('return' => 'Festplatte konnte nicht entfernt werden, da Crashplan noch läuft!', 'status' => 'danger');
             }
             unlink('log/.nomount');
             break;

@@ -9,10 +9,19 @@
                 Wenn Sie die Festplatte sicher entfernen, kann kein weiteres Backup vollführt werden.
                 Sie müssen Sie dann erneut anschließen, damit die Backupfunktionalität wieder gestartet wird.
             </p>
+            <div id="loader" class="media" style="display: none;">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="/css/loader.gif" alt="Loading">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">Bitte warten Sie...</h4>
+                    ...während versucht wird die Festplatte korrekt zu entfernen.
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Abbrechen</button>
-            <button id="remove-hdd" data-dismiss="modal" class="btn btn-warning">Festplatte sicher entfernen</button>
+            <button id="remove-hdd" class="btn btn-warning">Festplatte sicher entfernen</button>
         </div>
     </div>
 </div>
@@ -20,13 +29,16 @@
 <script>
     $(document).ready(function () {
         $('#remove-hdd').click(function () {
+            $('#loader').show();
+            $('.modal-footer button').hide();
             $.ajax({
                 url: 'scripts.php?call=removeHDD',
                 dataType: 'json',
                 success: function (data) {
                     console.log(data);
                     updateStatus();
-                    $(".alert-hdd").alert('close')
+                    $('.modal').modal('hide');
+                    $(".alert-hdd").alert('close');
                     $('h4#actions').after('<div style="text-align:left;" class="alert alert-dismissable alert-' + data.status + ' alert-hdd">' +
                             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
                             data.return + '</div>');
