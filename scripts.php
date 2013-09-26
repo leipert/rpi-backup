@@ -29,11 +29,19 @@ if(isset($_GET['call'])){
             sleep(5);
             exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/output.log 2>&1');
             if (preg_match('/CrashPlan Engine is stopped/', file_get_contents('output.log'))){
-                exec('sudo swapoff -a',$arr,$status);
-                exec('cat /proc/swaps | grep /dev > /var/www/output.log 2>&1');
-                $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
+                exec('sudo swapoff -a > /var/www/output.log 2>&1',$arr,$status);
+                if($status == 0){
+                    exec('sudo umount /media/backup > /var/www/output.log 2>&1',$arr,$status);
+                    if($status == 0){
+                        $return = array('return'=>'HDD unmounted','status'=>'success');
+                    }else{
+                        $return = array('return'=>'HDD could not be unmounted.'.nl2br(trim(file_get_contents('output.log'))),'status'=>'error');
+                    }
+                }else{
+                $return = array('return'=>'Swap could not be turned off.'.nl2br(trim(file_get_contents('output.log'))),'status'=>'error');
+                }
             }else{
-            $return = array('return'=>'Crashplan still running','status'=>'error');
+                $return = array('return'=>'Crashplan still running','status'=>'error');
             }
             unlink('.nomount');
             break;
