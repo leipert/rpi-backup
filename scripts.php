@@ -10,6 +10,12 @@ function getNiceOutput()
     return preg_replace('/[\t\v\f ]+/', ' ', nl2br(trim(file_get_contents('output.log'))));
 }
 
+function br2nl($string)
+{
+    return preg_replace('/\<br(\s*)?\/?\>/i', "\n", $string);
+}
+
+
 touch('output.log');
 $return = '';
 if (isset($_GET['call'])) {
@@ -67,7 +73,7 @@ if (isset($_GET['call'])) {
             }
             exec('cat /proc/swaps | grep /dev >> /var/www/output.log 2>&1');
             exec('/etc/init.d/ramlog status >> /var/www/output.log 2>&1');
-            $return['debug'] = getNiceOutput();
+            $return['debug'] = br2nl(getNiceOutput());
             break;
     }
 }
