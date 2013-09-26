@@ -24,7 +24,7 @@ if(isset($_GET['call'])){
             $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
             break;
         case 'removeHDD':
-            exec('sudo /usr/local/crashplan/bin/CrashPlanEngine stop > /var/www/output.log 2>&1',$arr,$status);
+            exec('sudo /etc/init.d/crashplan stop > /var/www/output.log 2>&1',$arr,$status);
             $return = array('return'=>nl2br(trim(file_get_contents('output.log'))),'status'=>$status);
             break;
         case 'status':
