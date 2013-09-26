@@ -29,7 +29,7 @@
             <span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Festplatte<strong class="not"> nicht</strong> angeschlossen.
         </p>
         <h4 id="actions" class="text-center">Aktionen</h4>
-        <button data-toggle="modal" data-target="#modal" data-remote="modals/removeHDDWarning.html" class="btn btn-default btn-block">Festplatte sicher entfernen</button>
+        <button id="hdd-remove-btn" data-toggle="modal" data-target="#modal" data-remote="modals/removeHDDWarning.html" class="btn btn-default btn-block">Festplatte sicher entfernen</button>
         <button data-toggle="modal" data-target="#modal" data-remote="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</button>
         <button data-toggle="modal" data-target="#modal" data-remote="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</button>
         <?php if (isset($_GET['debug'])) { ?>

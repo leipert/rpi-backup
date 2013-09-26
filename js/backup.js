@@ -25,10 +25,12 @@ function updateStatus(){
                 $('#hdd-status .label').removeClass('label-danger').addClass('label-success');
                 $('#hdd-status .glyphicon').removeClass('glyphicon-warning-sign').addClass('glyphicon-check');
                 $('#hdd-status .not').hide();
+                $('#hdd-remove-btn').prop('disabled', false);
             } else {
                 $('#hdd-status .label').addClass('label-danger').removeClass('label-success');
                 $('#hdd-status .glyphicon').addClass('glyphicon-warning-sign').removeClass('glyphicon-check');
                 $('#hdd-status .not').show();
+                $('#hdd-remove-btn').prop('disabled', true);
             }
             if ($('#debug').length > 0) {
                 $('#debug').text(data.debug);
