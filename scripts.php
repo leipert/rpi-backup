@@ -26,10 +26,10 @@ if(isset($_GET['call'])){
         case 'status':
             $return = array('return'=>'','crashplan'=>false,'hdd'=>false,'debug'=>'');
             exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/output.log 2>&1');
-            if (preg_match('#CrashPlan Engine (pid \d+) is running.#', file_get_contents('output.log'))){
+            if (preg_match('/CrashPlan\s+Engine\s+(pid \d+)\s+is\s+running/', file_get_contents('output.log'))){
             $return['crashplan'] = true;
             }
-            exec('[ ! -e /media/backup/.backup ]; echo "HDD_there_$?"');
+            exec('[ ! -e /media/backup/.backup ]; echo "HDD_there_$?" >> /var/www/output.log 2>&1');
             if (strpos('HDD_there_1', file_get_contents('output.log'))!==false){
             $return['hdd'] = true;
             }
