@@ -26,6 +26,10 @@ if(isset($_GET['call'])){
         case 'status':
             exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/output.log 2>&1');
             $return = array('return'=>nl2br(trim(file_get_contents('output.log'))));
+            exec('free -h > /var/www/output.log 2>&1');
+            exec('/etc/init.d/ramlog status >> /var/www/output.log 2>&1');
+            exec('ls /media/backup >> /var/www/output.log 2>&1');
+            $return['debug'] = nl2br(trim(file_get_contents('output.log')));
             break;
     }
 }

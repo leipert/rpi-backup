@@ -19,9 +19,13 @@
       <h4>Status Backup</h4>
       <pre id="status"></pre>
       <h4 id="actions" >Aktionen</h4>
-      <button id="update" class="btn btn-default btn-block">Update</button>
       <a data-toggle="modal" data-target="#modal"  href="modals/rebootWarning.html" class="btn btn-warning btn-block">Neustart</a>
       <a data-toggle="modal" data-target="#modal"  href="modals/shutdownWarning.html" class="btn btn-danger btn-block">Herunterfahren</a>
+      <?php if(isset($_GET['debug'])){ ?>
+      <h4 id="actions" >Debug</h4>
+      <button id="update" class="btn btn-default btn-block">Update</button>
+      <pre id="debug"></pre>
+      <?php } ?>
 </div>
   </div>
  <!-- Modal for Shutdown-->
@@ -39,6 +43,9 @@
         dataType: 'json',
         success: function(data){
             $('#status').html(data.return);
+            if($('#debug').length>0){
+            $('#debug').html(data.debug);
+            }
         }
         });
     $('#update').click(function(){
