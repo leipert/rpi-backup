@@ -22,7 +22,7 @@
         <h4 class="text-center">Status Backup</h4>
 
         <p class="lead" id="crashplan-status">
-            <span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Crashplan läuft<strong class="not">nicht</strong>.
+            <span class="label label-danger"><span class="glyphicon glyphicon-warning-sign"></span></span>  Crashplan läuft<strong class="not"> nicht</strong>.
         </p>
 
         <p class="lead" id="hdd-status">

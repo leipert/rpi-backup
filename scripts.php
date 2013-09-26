@@ -7,7 +7,7 @@ function execInBackground($cmd)
 
 function getNiceOutput()
 {
-    return preg_replace('/[\t\v\f ]+/', ' ', nl2br(trim(file_get_contents('output.log'))));
+    return preg_replace('/[\t\v\f ]+/', ' ', nl2br(trim(file_get_contents('log/output.log'))));
 }
 
 function br2nl($string)
@@ -16,7 +16,7 @@ function br2nl($string)
 }
 
 
-touch('output.log');
+touch('log/output.log');
 $return = '';
 if (isset($_GET['call'])) {
     switch ($_GET['call']) {
@@ -27,7 +27,7 @@ if (isset($_GET['call'])) {
             execInBackground('sudo shutdown -h now');
             break;
         case 'pull':
-            exec('git pull > /var/www/output.log 2>&1', $arr, $status);
+            exec('git pull > /var/www/log/output.log 2>&1', $arr, $status);
             $output = getNiceOutput();
             if ($status == 0) {
                 $status = 'success';
@@ -40,14 +40,14 @@ if (isset($_GET['call'])) {
             $return = array('return' => $output, 'status' => $status);
             break;
         case 'removeHDD':
-            touch('.nomount');
-            exec('sudo /etc/init.d/crashplan stop > /var/www/output.log 2>&1', $arr, $status);
+            touch('log/.nomount');
+            exec('sudo /etc/init.d/crashplan stop > /var/www/log/output.log 2>&1', $arr, $status);
             sleep(5);
-            exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/output.log 2>&1');
+            exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/log/output.log 2>&1');
             if (strpos(getNiceOutput(), '/CrashPlan Engine is stopped/') !== false) {
-                exec('sudo swapoff -a > /var/www/output.log 2>&1', $arr, $status);
+                exec('sudo swapoff -a > /var/www/log/output.log 2>&1', $arr, $status);
                 if ($status == 0) {
-                    exec('sudo umount /media/backup > /var/www/output.log 2>&1', $arr, $status);
+                    exec('sudo umount /media/backup > /var/www/log/output.log 2>&1', $arr, $status);
                     if ($status == 0) {
                         $return = array('return' => 'HDD unmounted', 'status' => 'success');
                     } else {
@@ -59,20 +59,20 @@ if (isset($_GET['call'])) {
             } else {
                 $return = array('return' => 'Crashplan still running', 'status' => 'danger');
             }
-            unlink('.nomount');
+            unlink('log/.nomount');
             break;
         case 'status':
             $return = array('return' => '', 'crashplan' => false, 'hdd' => false, 'debug' => '');
-            exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/output.log 2>&1');
+            exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/log/output.log 2>&1');
             if (preg_match('/CrashPlan Engine \(pid \d+\) is running/', getNiceOutput())) {
                 $return['crashplan'] = true;
             }
-            exec('[ ! -e /media/backup/.backup ]; echo "HDD_there_$?" >> /var/www/output.log 2>&1');
+            exec('[ ! -e /media/backup/.backup ]; echo "HDD_there_$?" >> /var/www/log/output.log 2>&1');
             if (strpos(getNiceOutput(), 'HDD_there_1') !== false) {
                 $return['hdd'] = true;
             }
-            exec('cat /proc/swaps | grep /dev >> /var/www/output.log 2>&1');
-            exec('/etc/init.d/ramlog status >> /var/www/output.log 2>&1');
+            exec('cat /proc/swaps | grep /dev >> /var/www/log/output.log 2>&1');
+            exec('/etc/init.d/ramlog status >> /var/www/log/output.log 2>&1');
             $return['debug'] = br2nl(date('r').' <br> '.getNiceOutput());
             break;
     }
