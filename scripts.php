@@ -27,15 +27,15 @@ if (isset($_GET['call'])) {
             execInBackground('sudo shutdown -h now');
             break;
         case 'pull':
-            exec('git pull > /var/www/output.log 2>&1', $arr, $status1);
+            exec('git pull > /var/www/output.log 2>&1', $arr, $status);
             $output = getNiceOutput();
-            if ($status1 == 0) {
+            if ($status == 0) {
                 $status = 'success';
             } else {
                 $status = 'error';
             }
             if (strpos($output, 'Already up-to-date') !== false) {
-                $status = 'info' . $status1;
+                $status = 'info';
             }
             $return = array('return' => $output, 'status' => $status);
             break;
