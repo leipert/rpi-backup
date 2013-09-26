@@ -31,12 +31,12 @@ function updateStatus(){
                 $('#hdd-status .label').removeClass('label-danger').addClass('label-success');
                 $('#hdd-status .glyphicon').removeClass('glyphicon-warning-sign').addClass('glyphicon-check');
                 $('#hdd-status .not').hide();
-                $('#hdd-remove-btn').prop('disabled', false);
+                $('#hdd-remove-btn').show();
             } else {
                 $('#hdd-status .label').addClass('label-danger').removeClass('label-success');
                 $('#hdd-status .glyphicon').addClass('glyphicon-warning-sign').removeClass('glyphicon-check');
                 $('#hdd-status .not').show();
-                $('#hdd-remove-btn').prop('disabled', true);
+                $('#hdd-remove-btn').hide();
                 clearTimeout(updateTimeout);
                 updateTimeout = setTimeout(updateStatus,5000);
             }
