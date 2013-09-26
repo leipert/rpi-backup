@@ -46,20 +46,20 @@
         success: function(data){
             console.log(data);
             if(data.crashplan){
-                $('#crashplan-status .label').removeClass('label-danger').addClass('labelSuccess');
+                $('#crashplan-status .label').removeClass('label-danger').addClass('label-success');
                 $('#crashplan-status .glyphicon').removeClass('glyphicon-warning-sign').addClass('glyphicon-check');
                 $('#crashplan-status .not').hide();
             }else{
-                $('#crashplan-status .label').addClass('label-danger').removeClass('labelSuccess');
+                $('#crashplan-status .label').addClass('label-danger').removeClass('label-success');
                 $('#crashplan-status .glyphicon').addClass('glyphicon-warning-sign').removeClass('glyphicon-check');
                 $('#crashplan-status .not').show();
             }
             if(data.hdd){
-                $('#hdd-status .label').removeClass('label-danger').addClass('labelSuccess');
+                $('#hdd-status .label').removeClass('label-danger').addClass('label-success');
                 $('#hdd-status .glyphicon').removeClass('glyphicon-warning-sign').addClass('glyphicon-check');
                 $('#hdd-status .not').hide();
             }else{
-                $('#hdd-status .label').addClass('label-danger').removeClass('labelSuccess');
+                $('#hdd-status .label').addClass('label-danger').removeClass('label-success');
                 $('#hdd-status .glyphicon').addClass('glyphicon-warning-sign').removeClass('glyphicon-check');
                 $('#hdd-status .not').show();
             }
