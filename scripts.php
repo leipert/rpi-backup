@@ -68,7 +68,7 @@ if (isset($_GET['call'])) {
             unlink('log/.nomount');
             break;
         case 'status':
-            if(time()>(intval(file_get_contents('log/update.log'))+24*60*60)){
+            if(time()>(intval(file_get_contents('log/update.log')) /*+24*60*60 */)){
                 update();
             }
             $return = array('return' => '', 'crashplan' => false, 'hdd' => false, 'debug' => '');
