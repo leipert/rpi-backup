@@ -82,6 +82,7 @@ if (isset($_GET['call'])) {
             }
             exec('cat /proc/swaps | grep /dev >> /var/www/log/output.log 2>&1');
             exec('/etc/init.d/ramlog status >> /var/www/log/output.log 2>&1');
+            exec('git rev-parse --short HEAD >> /var/www/log/output.log 2>&1');
             $return['debug'] = br2nl(date('r').' <br> '.getNiceOutput());
             break;
     }
