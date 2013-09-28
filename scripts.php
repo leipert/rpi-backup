@@ -83,6 +83,7 @@ if (isset($_GET['call'])) {
             exec('echo Mounted swaps: `cat /proc/swaps | grep /dev` >> /var/www/log/output.log 2>&1');
             exec('echo Ramlog Status: `/etc/init.d/ramlog status` >> /var/www/log/output.log 2>&1');
             exec('echo Program Version: `git rev-parse --short HEAD` >> /var/www/log/output.log 2>&1');
+            exec('echo CPU Temp: `cat /sys/class/thermal/thermal_zone0/temp` >> /var/www/log/output.log 2>&1');
             $return['debug'] = br2nl(date('r').' <br> '.getNiceOutput());
             break;
     }
