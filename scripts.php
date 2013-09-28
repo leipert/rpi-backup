@@ -15,8 +15,24 @@ function br2nl($string)
     return preg_replace('/\<br(\s*)?\/?\>\s+/i', "\n", $string);
 }
 
+function update(){
+    exec('git pull > /var/www/log/output.log 2>&1', $arr, $status);
+    $output = getNiceOutput();
+    if ($status == 0) {
+        $status = 'success';
+        file_put_contents('log/update.log',time());
+    } else {
+        $status = 'danger';
+    }
+    if (strpos($output, 'Already up-to-date') !== false) {
+        $status = 'info';
+    }
+    return array('return' => $output, 'status' => $status);
+}
+
 
 touch('log/output.log');
+touch('log/update.log');
 $return = '';
 if (isset($_GET['call'])) {
     switch ($_GET['call']) {
@@ -27,17 +43,7 @@ if (isset($_GET['call'])) {
             execInBackground('sudo shutdown -h now');
             break;
         case 'pull':
-            exec('git pull > /var/www/log/output.log 2>&1', $arr, $status);
-            $output = getNiceOutput();
-            if ($status == 0) {
-                $status = 'success';
-            } else {
-                $status = 'danger';
-            }
-            if (strpos($output, 'Already up-to-date') !== false) {
-                $status = 'info';
-            }
-            $return = array('return' => $output, 'status' => $status);
+            $return = update();
             break;
         case 'removeHDD':
             touch('log/.nomount');
@@ -62,6 +68,9 @@ if (isset($_GET['call'])) {
             unlink('log/.nomount');
             break;
         case 'status':
+            if(time()>(intval(file_get_contents('log/update.log'))+24*60*60)){
+                update();
+            }
             $return = array('return' => '', 'crashplan' => false, 'hdd' => false, 'debug' => '');
             exec('/usr/local/crashplan/bin/CrashPlanEngine status > /var/www/log/output.log 2>&1');
             if (preg_match('/CrashPlan Engine \(pid \d+\) is running/', getNiceOutput())) {
